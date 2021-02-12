@@ -16,220 +16,255 @@ import javax.swing.WindowConstants;
 
 class CalculadoraChafa extends JFrame implements ActionListener{
 	
-	GridBagLayout gbl = new GridBagLayout();
-	GridBagConstraints gbc = new GridBagConstraints();
 	
-	String cache = "";
-	char op = ' ';
 	
-	JTextField areaTexto = new JTextField();
+	String guardado = "";
+	int operacion = 0;
+	
+	JTextField entrada = new JTextField();
 	
 	JButton btnSumar = new JButton("+");
-	JButton btnRestar = new JButton("-");
-	JButton btnMultiplicar = new JButton("*");
+	JButton btnRestar = new JButton("_");
+	JButton btnX = new JButton("X");
 	JButton btnDividir = new JButton("/");
-	JButton btnResiduo = new JButton("%");
+	JButton btnResi = new JButton("%");
 	JButton btn1X = new JButton("1/x");
-	JButton btnPotencia = new JButton("x^2");
-	JButton btnRaiz = new JButton("sqrt");
-	JButton btnDel = new JButton("<[]");
-	JButton btnCE = new JButton("CE");
-	JButton btnResultado = new JButton("=");
+	JButton btnPow = new JButton("x^2");
+	JButton btnRaiz = new JButton("RAIZ");
+	JButton btnBorrar = new JButton("<=");
+	JButton btnC = new JButton("CE");
+	JButton btnIgual = new JButton("=");
 	
-	JButton btn0 = new JButton("0");
-	JButton btn1 = new JButton("1");
-	JButton btn2 = new JButton("2");
-	JButton btn3 = new JButton("3");
-	JButton btn4 = new JButton("4");
-	JButton btn5 = new JButton("5");
-	JButton btn6 = new JButton("6");
-	JButton btn7 = new JButton("7");
-	JButton btn8 = new JButton("8");
-	JButton btn9 = new JButton("9");
-	JButton btnDot= new JButton(".");
+	JButton b0 = new JButton("0");
+	JButton b1 = new JButton("1");
+	JButton b2 = new JButton("2");
+	JButton b3 = new JButton("3");
+	JButton b4 = new JButton("4");
+	JButton b5 = new JButton("5");
+	JButton b6 = new JButton("6");
+	JButton b7 = new JButton("7");
+	JButton b8 = new JButton("8");
+	JButton b9 = new JButton("9");
+	JButton btnpunto= new JButton(".");
 	
 	
 	public CalculadoraChafa() {
-		
-		getContentPane().setLayout(gbl);
+		getContentPane().setLayout(null);
+		setSize(417,400);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Calculadora");
-		gbc.fill=GridBagConstraints.BOTH;
+		
 		setVisible(true);
 		
-		btnSumar.addActionListener(this);
-		btnRestar.addActionListener(this);
-		btnMultiplicar.addActionListener(this);
-		btnDividir.addActionListener(this);
-		btnResiduo.addActionListener(this);
+	
+		entrada.setBounds(0, 0, 400, 30);
+		add(entrada);
+		
+		btnResi.setBounds(0, 30, 100, 30);
+		add(btnResi);
+		btnResi.addActionListener(this);
+		
+		btnC.setBounds(100, 30, 100, 30);
+		add(btnC);
+		btnC.addActionListener(this);
+		
+		btnBorrar.setBounds(200, 30, 200, 30);
+		add(btnBorrar);
+		btnBorrar.addActionListener(this);
+		
+		btn1X.setBounds(0, 60, 100, 30);
+		add(btn1X);
 		btn1X.addActionListener(this);
-		btnPotencia.addActionListener(this);
+		
+		btnPow.setBounds(100, 60, 100, 30);
+		add(btnPow);
+		btnPow.addActionListener(this);
+		
+		btnRaiz.setBounds(200, 60, 100, 30);
+		add(btnRaiz);
 		btnRaiz.addActionListener(this);
-		btnDel.addActionListener(this);
-		btnCE.addActionListener(this);
-		btnResultado.addActionListener(this);
-		btn0.addActionListener(this);
-		btn1.addActionListener(this);
-		btn2.addActionListener(this);
-		btn3.addActionListener(this);
-		btn4.addActionListener(this);
-		btn5.addActionListener(this);
-		btn6.addActionListener(this);
-		btn7.addActionListener(this);
-		btn8.addActionListener(this);
-		btn9.addActionListener(this);
-		btnDot.addActionListener(this);
 		
-		inst(areaTexto,0,0,4,1,GridBagConstraints.BOTH);
+		btnDividir.setBounds(300, 60, 100, 30);
+		add(btnDividir);
+		btnDividir.addActionListener(this);
 		
-		inst(btnResiduo,0,1,1,1,GridBagConstraints.BOTH);
-		inst(btnCE,1,1,1,1,GridBagConstraints.BOTH);
-		inst(btnDel,2,1,2,1,GridBagConstraints.BOTH);
+		b7.setBounds(0, 90, 100, 30);
+		add(b7);
+		b7.addActionListener(this);
 		
-		inst(btn1X,0,2,1,1,GridBagConstraints.BOTH);
-		inst(btnPotencia,1,2,1,1,GridBagConstraints.BOTH);
-		inst(btnRaiz,2,2,1,1,GridBagConstraints.BOTH);
-		inst(btnDividir,3,2,1,1,GridBagConstraints.BOTH);
+		b8.setBounds(100, 90, 100, 30);
+		add(b8);
+		b8.addActionListener(this);
 		
-		inst(btn7,0,3,1,1,GridBagConstraints.BOTH);
-		inst(btn8,1,3,1,1,GridBagConstraints.BOTH);
-		inst(btn9,2,3,1,1,GridBagConstraints.BOTH);
-		inst(btnMultiplicar,3,3,1,1,GridBagConstraints.BOTH);
+		b9.setBounds(200, 90, 100, 30);
+		add(b9);
+		b9.addActionListener(this);
 		
-		inst(btn4,0,4,1,1,GridBagConstraints.BOTH);
-		inst(btn5,1,4,1,1,GridBagConstraints.BOTH);
-		inst(btn6,2,4,1,1,GridBagConstraints.BOTH);
-		inst(btnRestar,3,4,1,1,GridBagConstraints.BOTH);
+		btnX.setBounds(300, 90, 100, 30);
+		add(btnX);
+		btnX.addActionListener(this);
 		
-		inst(btn1,0,5,1,1,GridBagConstraints.BOTH);
-		inst(btn2,1,5,1,1,GridBagConstraints.BOTH);
-		inst(btn3,2,5,1,1,GridBagConstraints.BOTH);
-		inst(btnSumar,3,5,1,1,GridBagConstraints.BOTH);
-
-		inst(btnDot,0,6,1,1,GridBagConstraints.BOTH);
-		inst(btn0,1,6,1,1,GridBagConstraints.BOTH);
-		inst(btnResultado,2,6,2,1,GridBagConstraints.BOTH);
+		b4.setBounds(0, 120, 100, 30);
+		add(b4);
+		b4.addActionListener(this);
 		
-		pack();
+		b5.setBounds(100, 120, 100, 30);
+		add(b5);
+		b5.addActionListener(this);
+	
+		b6.setBounds(200, 120, 100, 30);
+		add(b6);
+		b6.addActionListener(this);
+		
+		btnRestar.setBounds(300, 120, 100, 30);
+		add(btnRestar);
+		btnRestar.addActionListener(this);
+		
+		b1.setBounds(0, 150, 100, 30);
+		add(b1);
+		b1.addActionListener(this);
+		
+		b2.setBounds(100, 150, 100, 30);
+		add(b2);
+		b2.addActionListener(this);
+		
+		b3.setBounds(200, 150, 100, 30);
+		add(b3);
+		b3.addActionListener(this);
+		
+		btnSumar.setBounds(300, 150, 100, 30);
+		add(btnSumar);
+		btnSumar.addActionListener(this);
+	
+		b0.setBounds(0, 180, 150, 30);
+		add(b0);
+		b0.addActionListener(this);
+		
+		btnpunto.setBounds(150, 180, 100, 30);
+		add(btnpunto);
+		btnpunto.addActionListener(this);
+		
+		btnIgual.setBounds(250, 180, 150, 30);
+		add(btnIgual);
+		btnIgual.addActionListener(this);
+		
 	}
 
-	public void inst(Component cmp,int gridx, int gridy, int gridwidth, int gridheight, int fill) {
-		gbc.gridx=gridx;
-		gbc.gridy=gridy;
-		gbc.gridwidth=gridwidth;
-		gbc.gridheight=gridheight;
-		gbc.fill=fill;
-		gbl.setConstraints(cmp, gbc);
-		add(cmp);
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource()==btn0) {
-			areaTexto.setText(areaTexto.getText()+'0');
-		}else if(e.getSource()==btn1) {
-			areaTexto.setText(areaTexto.getText()+'1');
-		}else if(e.getSource()==btn2) {
-			areaTexto.setText(areaTexto.getText()+'2');
-		}else if(e.getSource()==btn3) {
-			areaTexto.setText(areaTexto.getText()+'3');
-		}else if(e.getSource()==btn4) {
-			areaTexto.setText(areaTexto.getText()+'4');
-		}else if(e.getSource()==btn5) {
-			areaTexto.setText(areaTexto.getText()+'5');
-		}else if(e.getSource()==btn6) {
-			areaTexto.setText(areaTexto.getText()+'6');
-		}else if(e.getSource()==btn7) {
-			areaTexto.setText(areaTexto.getText()+'7');
-		}else if(e.getSource()==btn8) {
-			areaTexto.setText(areaTexto.getText()+'8');
-		}else if(e.getSource()==btn9) {
-			areaTexto.setText(areaTexto.getText()+'9');
-		}else if(e.getSource()==btnResiduo) {
-			op='%';
-			cache=areaTexto.getText();
-			areaTexto.setText("");
-		}else if(e.getSource()==btnCE) {
-			op=' ';
-			cache="";
-			areaTexto.setText("");
-		}else if(e.getSource()==btnDel) {
-			if (areaTexto.getText().length()>0) {
-				areaTexto.setText(areaTexto.getText().substring(0, areaTexto.getText().length()-1));
-			}
-		}else if(e.getSource()==btn1X) {
+		if (e.getSource()==b0) {entrada.setText(entrada.getText()+'0');
+		}else if(e.getSource()==b1) {entrada.setText(entrada.getText()+'1');
+		}else if(e.getSource()==b2) {entrada.setText(entrada.getText()+'2');
+		}else if(e.getSource()==b3) {entrada.setText(entrada.getText()+'3');
+		}else if(e.getSource()==b4) {entrada.setText(entrada.getText()+'4');
+		}else if(e.getSource()==b5) {entrada.setText(entrada.getText()+'5');
+		}else if(e.getSource()==b6) {entrada.setText(entrada.getText()+'6');
+		}else if(e.getSource()==b7) {entrada.setText(entrada.getText()+'7');
+		}else if(e.getSource()==b8) {entrada.setText(entrada.getText()+'8');
+		}else if(e.getSource()==b9) {entrada.setText(entrada.getText()+'9');
+		
+		/* RESIDUO 			=> 1
+		 * DIVISION	 		=> 2
+		 * MULTIPLICACION 	=> 3
+		 * RESTA 			=> 4
+		 * SUMA 			=> 5
+		 * NULO 			=> 0
+		 */
+		
+		}else if(e.getSource()==btnResi) {
+			operacion=1;
+			guardado=entrada.getText();
+			entrada.setText("");
 			
-			if (areaTexto.getText().length()>0) {
-				double num=Double.parseDouble(areaTexto.getText());
-				if (num!=0) {
-					num=1/num;
-					areaTexto.setText(String.valueOf(num));
+		}else if(e.getSource()==btnC) {
+			operacion=0;
+			guardado="";
+			entrada.setText("");
+			
+		}else if(e.getSource()==btnBorrar) {
+			if (entrada.getText().length()>0) {
+				//Se toma lo que hay como etrada, y establece la entrada menos el ultimo caracter
+				entrada.setText(entrada.getText().substring(0, entrada.getText().length()-1)); 
+			}
+			
+		}else if(e.getSource()==btn1X) {
+			if (entrada.getText().length()>0) {
+				double resul=Double.parseDouble(entrada.getText());
+				//Se revisa que denominador sea diferente de sero
+				if (resul!=0) {
+					resul=1/resul;
+					entrada.setText(String.valueOf(resul));
 				}
 			}
-		}else if(e.getSource()==btnPotencia) {
-			if (areaTexto.getText().length()>0) {
-				Double num=Double.parseDouble(areaTexto.getText());
-				num = Math.pow(num, 2);
-				areaTexto.setText(String.valueOf(num));
+		}else if(e.getSource()==btnPow) {
+			if (entrada.getText().length()>0) {
+				Double resul=Double.parseDouble(entrada.getText());
+				resul = Math.pow(resul, 2);
+				entrada.setText(String.valueOf(resul));
 			}
 		}else if(e.getSource()==btnRaiz) {
-			if (areaTexto.getText().length()>0) {
-				Double num=Double.parseDouble(areaTexto.getText());
-				if (num>0) {
-					num = Math.sqrt(num);
-					areaTexto.setText(String.valueOf(num));
+			if (entrada.getText().length()>0) {
+				Double resul=Double.parseDouble(entrada.getText());
+				if (resul>0) {
+					resul = Math.sqrt(resul);
+					entrada.setText(String.valueOf(resul));
 				}
 			}
 		}else if(e.getSource()==btnDividir) {
-			cache = areaTexto.getText();
-			op='/';
-			areaTexto.setText("");
-		}else if(e.getSource()==btnMultiplicar) {
-			cache = areaTexto.getText();
-			op='*';
-			areaTexto.setText("");
+			guardado = entrada.getText();
+			operacion=2;
+			entrada.setText("");
+			
+		}else if(e.getSource()==btnX) {
+			guardado = entrada.getText();
+			operacion=3;
+			entrada.setText("");
+			
 		}else if(e.getSource()==btnRestar) {
-			cache = areaTexto.getText();
-			op='-';
-			areaTexto.setText("");
+			guardado = entrada.getText();
+			operacion=4;
+			entrada.setText("");
+			
 		}else if(e.getSource()==btnSumar) {
-			cache = areaTexto.getText();
-			op='+';
-			areaTexto.setText("");
-		}else if(e.getSource()==btnDot) {
-			if (!areaTexto.getText().contains(".")) {
-				areaTexto.setText(areaTexto.getText()+'.');
+			guardado = entrada.getText();
+			operacion=5;
+			entrada.setText("");
+			
+		}else if(e.getSource()==btnpunto) {
+			if (!entrada.getText().contains(".")) {
+				entrada.setText(entrada.getText()+'.');
 			}
 			
 			
 			
-		}else if(e.getSource()==btnResultado) {
-			if(op!=' ') {
-				double num1 = Double.parseDouble(cache);
-				double num2 = Double.parseDouble(areaTexto.getText());
-				double num3 = 0;
-				switch (op) {
-				case '+':
-					num3=num1+num2;
+		}else if(e.getSource()==btnIgual) {
+			if(operacion!=0) {
+				double n1 = Double.parseDouble(guardado);
+				double n2 = Double.parseDouble(entrada.getText());
+				double r = 0;
+				switch (operacion) {
+				case 5:
+					r=n1+n2;
 					break;
-				case '-':
-					num3=num1-num2;
+				case 4:
+					r=n1-n2;
 					break;
-				case '*':
-					num3=num1*num2;
+				case 3:
+					r=n1*n2;
 						break;
-				case '/':
-					num3=num1/num2;
+				case 2:
+					r=n1/n2;
 					break;
-				case '%':
-					num3=num1%num2;
+				case 1:
+					r=n1%n2;
 					break;
 				default:
 					break;
 				}
-				areaTexto.setText(String.valueOf(num3));
+				entrada.setText(String.valueOf(r));
 			}
 		}
 		
